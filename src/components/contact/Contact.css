@@ -1,0 +1,239 @@
+.newsletter {
+  position: relative;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),
+    url(https://cartuser.kodepixel.com/assets/images/news_latter.jpg);
+  z-index: 1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.news-vector {
+  position: absolute;
+  right: 50px;
+  transform: translateY(-50%) rotate(0deg);
+  top: 50%;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+.news-vector svg {
+  fill: var(--white);
+  width: 90px;
+  height: 90px;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.newsletter-left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.newsletter-left > h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: capitalize;
+}
+
+.newsletter-left > span {
+  font-size: 1.4rem;
+  color: var(--gray-5);
+  opacity: 0.85;
+}
+
+.newsletter-form-input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  padding: 0.5rem;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-top: 25px;
+}
+
+.newsletter-email {
+  border: none;
+  width: 100%;
+  padding: 1.5rem 2.5rem;
+  font-size: 1.4rem;
+  background-color: transparent;
+  color: var(--gray-1);
+  overflow: hidden;
+  border-radius: var(--radius-4);
+  -webkit-border-radius: var(--radius-4);
+  -moz-border-radius: var(--radius-4);
+  -ms-border-radius: var(--radius-4);
+  -o-border-radius: var(--radius-4);
+}
+
+.newsletter-submit {
+  overflow: inherit !important;
+}
+
+.newsletter-submit {
+  border: none;
+  padding: 0.5rem 0.5rem;
+  font-size: 2rem;
+  color: var(--text-primary);
+  background-color: var(--primary);
+  cursor: pointer;
+  border-radius: var(--radius-4);
+  border-radius: 50px;
+  min-width: 55px;
+  height: 55px;
+}
+
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: var(--radius-4);
+  overflow: hidden;
+}
+
+.need-help .icon svg {
+  width: 65px;
+  height: 65px;
+  fill: var(--primary);
+  stroke: var(--primary);
+}
+
+.need-help {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 15px 25px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 50px;
+}
+.need-help .icon {
+  margin-right: 10px;
+}
+
+.need-help h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.need-help h2 a {
+  color: inherit;
+}
+
+.need-help p {
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.7;
+  margin-top: 6px;
+  font-family: var(--font-secondary);
+}
+
+/* Responsive */
+
+@media only screen and (min-width: 320px) {
+  .Container {
+    max-width: 100%;
+  }
+  .newsletter-left {
+    align-items: flex-start;
+  }
+  .newsletter-form {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 425px) {
+  .Container {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .newsletter-left > h2 {
+    font-size: 2.4rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Container {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .Container {
+    max-width: 98rem;
+  }
+  .newsletter-left > h2 {
+    font-size: 2.8rem;
+  }
+  .need-help {
+    margin-bottom: 0px;
+  }
+  .col-lg-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .Container {
+    max-width: 118rem;
+  }
+  .newsletter-left {
+    align-items: flex-start;
+  }
+  .newsletter-form {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .Container {
+    max-width: 142rem;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .Container {
+    max-width: 156rem;
+  }
+}
