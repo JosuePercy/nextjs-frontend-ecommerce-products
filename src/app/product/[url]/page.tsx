@@ -1,10 +1,37 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import './page.css'
+import { fetchGET } from '@/utils/fetch-apis'
+import { IProduct } from '@/interfaces/products.interface'
+import { useSearchParams } from 'next/navigation'
 
-const Product = () => {
-    return (
-        <section className='product-details pt-80 pb-80'>
-            <div className='Container'>
+
+
+
+const NOT_RESULTS = () => <h3>NO SE ENCONTRO EL PRODUCTO</h3>
+
+
+const Product = ({ params }: any) => {
+    //const { url } = router.asPath
+    const [product, setProduct] = useState<IProduct[] | null>([])
+
+
+    const { url } = params
+
+
+    const getFetchProduct = () => {
+        console.log(`api 0======>    ${process.env.NEXT_PUBLIC_API}/products/${url}`)
+        const response = fetchGET(`${process.env.NEXT_PUBLIC_API}/products/${url}`)
+            .then(data => {
+                console.log("data", data)
+                setProduct(data)
+            })
+        return response
+    }
+
+    const PRODUCT_LIST = () => {
+        return (
+            <>
                 <ul className='route'>
                     <li><a href="https://cartuser.kodepixel.com">Home /</a></li>
                     <li>
@@ -17,9 +44,9 @@ const Product = () => {
                         <div className='small-img'>
                             <div className='small-img-item'>
                                 {
-                                    [1,2,3].map(() => (
-                                        <div className='gallery-sm-img product-gallery-small-img'>
-                                            <img src="https://cartuser.kodepixel.com/assets/images/backend/product/gallery/65ddc6b8a60ea1709033144.png" alt="65ddc6b8a60ea1709033144.png" />
+                                    [1, 2, 3].map((index) => (
+                                        <div key={index} className='gallery-sm-img product-gallery-small-img'>
+                                            <img src={product[0].images[0].image} alt="65ddc6b8a60ea1709033144.png" />
                                         </div>
                                     ))
 
@@ -29,20 +56,19 @@ const Product = () => {
                         <div className='product-thumbnail-slider'>
                             <div className='magnify-container'>
                                 <div className='magnified'>
-                                    <img className="qv-lg-image" src="https://cartuser.kodepixel.com/assets/images/backend/product/gallery/65ddc6b8a60ea1709033144.png" alt="65ddc6b8a60ea1709033144.png"></img>
+                                    <img className="qv-lg-image" src={product[0].images[0].image} alt="65ddc6b8a60ea1709033144.png"></img>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='product-detail-middle'>
-                        <h3 className="details-product-title">Video Game Joy Stick</h3>
+                        <h3 className="details-product-title">{product[0]?.name}</h3>
                         <div className='product-price price-section'>
-                            <span>$22.50</span>
-                            <del> $25.00</del>
+                            <span>S/.{(+product[0].price).toFixed(2)}</span>
                         </div>
                         <div className='product-item-summery'>
                             <p>
-                                <span>These are the most common types, offering smooth and precise control over movement and aiming. They typically have two sticks, one for each hand, with each stick able to tilt in all directions.</span>
+                                <span>{product[0].description}</span>
                             </p>
                         </div>
                         <form className='attribute-options-form-10040787details10040787 quick-view-form'>
@@ -65,23 +91,48 @@ const Product = () => {
                             <div className='product-actions-type'>
                                 <div className='input-step'>
                                     <button type="button" className="update_qty x decrement ">–</button>
-                                    <input  type="text"   className="product-quantity" name="quantity" value="1" id="quantity"></input>
+                                    <input type="text" className="product-quantity" name="quantity" value="1" id="quantity"></input>
                                     <button type="button" className="update_qty y increment">+</button>
                                 </div>
-                                <a href="javascript:void(0)" data-product_id="93620120details93620120" className="buy-now addtocartbtn">
+                                <a href="#" data-product_id="93620120details93620120" className="buy-now addtocartbtn">
                                     <img src='/icons/car.svg' alt="" />
                                 </a>
                             </div>
                             <div className='product-detail-btn'>
                                 <a href="" data-checkout="yes" className="buy-now-btn quick-buy-btn addtocartbtn">
-                                   <img src="/icons/card-shop.svg" alt="card shop" />  
-                                   Buy Now
+                                    <img src="/icons/card-shop.svg" alt="card shop" />
+                                    Buy Now
                                 </a>
                             </div>
                         </form>
                     </div>
                 </div>
-               
+            </>
+        )
+    }
+
+
+    useEffect(() => {
+        if (url) {
+            getFetchProduct();
+        }
+    }, []);
+
+    /* 
+    useEffect(() => {
+        getFetchProduct()
+    }, []) */
+
+
+    return (
+        <section className='product-details pt-80 pb-80'>{JSON.stringify(product)}
+            <div className='Container'>
+                {
+                    product != null && product?.length <= 0 
+                        ? <NOT_RESULTS />
+                        : <PRODUCT_LIST />
+
+                }
             </div>
         </section>
     )

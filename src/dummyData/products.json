@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Silla Raze",
+    "category": {
+      "name": " Pantalones",
+      "url": " pantalones"
+    },
+    "images": [
+      {
+        "url": "imasdoas"
+      },
+      {
+        "url": "imasdoas"
+      },
+      {
+        "url": "imasdoas"
+      }
+    ],
+    "price": "1900",
+    "description": "Rango de inclinación del respaldo de 90°x139°, cómodos apoyabrazos.",
+    "date_registered": "2024-05-25T00:00:00.000Z",
+    "url": "silla-raze"
+  },
+  {
+    "name": "Silla Raze",
+    "category": {
+      "name": " Pantalones",
+      "url": " pantalones"
+    },
+    "images": [
+      {
+        "url": "imasdoas"
+      },
+      {
+        "url": "imasdoas"
+      },
+      {
+        "url": "imasdoas"
+      }
+    ],
+    "price": "1900",
+    "description": "Rango de inclinación del respaldo de 90°x139°, cómodos apoyabrazos.",
+    "date_registered": "2024-05-25T00:00:00.000Z",
+    "url": "silla-raze"
+  }
+]

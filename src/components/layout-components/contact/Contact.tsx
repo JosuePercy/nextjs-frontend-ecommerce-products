@@ -18,7 +18,7 @@ export default function Contact() {
                                     <input className="newsletter-email" type="email" placeholder="Enter your email address" />
                                     <button type="submit" className="newsletter-submit wave-btn">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                            <path d="M2 3h20v14H6l-4 4V3z" fill="white" stroke="black" stroke-width="2" />
+                                            <path d="M2 3h20v14H6l-4 4V3z" fill="white" stroke="black" strokeWidth="2" />
                                         </svg>
                                     </button>
                                 </div>

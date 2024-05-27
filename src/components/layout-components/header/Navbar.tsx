@@ -1,9 +1,111 @@
+"use client"
+import { useContext, useEffect, useState } from "react"
 
 import "./Navbar.css"
+import { stringify } from "querystring"
+import { IProduct } from "@/interfaces/products.interface"
+import { UIContext } from "@/context/ui/UIContext"
+
+
 
 const Navbar = () => {
+    const { localStorageProduct, setLocalStorageProduct, setLocalStorageProductArray } = useContext(UIContext)
+    const [listProductLocalStorage, setListProductLocalStorage] = useState<IProduct[]>([])
+    const [totalPrice, setTotalPrice] = useState<number>(0)
+
+    const sumPrices = () => {
+        let result = listProductLocalStorage
+            .reduce((total, product) => total + parseFloat(product.price), 0);
+        setTotalPrice(result)
+    };
+
+
+    useEffect(() => {
+        sumPrices()
+    }, [listProductLocalStorage])
+
+    useEffect(() => {
+        setListProductLocalStorage(localStorageProduct)
+
+
+    }, [localStorageProduct])
+
+    useEffect(() => {
+        setListProductLocalStorage(JSON.parse(localStorage.getItem("car") ?? "[]"))
+    }, [])
+
+
+    const listProductShoppingCart = () => {
+        return (
+            <>
+                <div className="cart-products">
+                    {
+
+                        listProductLocalStorage.map((item: IProduct, index: number) => {
+
+                            const { price } = item
+                            let priceSoles = parseFloat(price).toFixed(2);
+
+                            return (
+
+                                <div key={index} className="cart-product">
+                                    <div className="cart-product-img">
+                                        {
+                                            item?.images?.[0]?.image && (
+                                                <img src={item.images[0].image} alt={item.name} />
+                                            )
+                                        }
+                                    </div>
+                                    <div className="cart-product-info">
+                                        <h4 className="cart-product-title">
+                                            <a href="">{item.name}</a>
+                                        </h4>
+                                        <span className="cart-product-price">1 X S./{priceSoles}</span>
+                                    </div>
+                                    <button
+                                        className="remove-product addtocart-remove-btn remove-cart-data"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            onDeleteStorage(item.id)
+                                        }}>
+                                        <img src="icons/delete-product.svg " alt={item.name} />
+                                    </button>
+                                </div>
+
+                            )
+                        })
+                    }
+
+                </div>
+                <div className="cart-product-total-price">
+                    <span>Total: </span>
+                    <small>S/ {totalPrice.toFixed(2)} </small>
+                </div>
+            </>
+        )
+    }
+
+
+    const showShoppingCart = () => {
+        if (listProductLocalStorage.length <= 0) {
+            return (
+                <div className="empty-cart">
+                    <p className="fs-14 text-muted ">No Product Available In Your Cart</p>
+                </div>
+            )
+        }
+
+        else return listProductShoppingCart()
+    }
+
+    const onDeleteStorage = (id: any) => {
+        let reuslt: IProduct[] = listProductLocalStorage.filter((item) => item.id !== id)
+        setLocalStorageProductArray(reuslt)
+
+    }
+
     return (
-       <header className="sticky">
+        <header className="sticky">
             <div className="header-bottom">
                 <div className="container-fluid">
                     <div className="header-bottom-container">
@@ -19,8 +121,8 @@ const Navbar = () => {
                                     <div className="live-search-input">
                                         <div className="search">
                                             <img className="fa fa-search" src="/icons/lupa.png" alt="" />
-                                            <input type="text" 
-                                                placeholder="What are you looking for?" 
+                                            <input type="text"
+                                                placeholder="What are you looking for?"
                                                 className="form-control"
                                             />
                                         </div>
@@ -60,16 +162,15 @@ const Navbar = () => {
                                             <span className="header-action-badge cart-items-count d-none"> </span>
                                         </div>
                                         <div className="d-flex flex-column">
-                                            <span className="each-action-item-sub">Your Cart:</span>
-                                            <p id="total-cart-amount">$0.00</p>
+                                            <span className="each-action-item-sub">Tu carrito:</span>
+                                            <p id="total-cart-amount">S/ {totalPrice.toFixed(2)}</p>
                                         </div>
-                                        <div className="cart-dropdown addtocart-dropdown cart--itemlist"><div className="empty-cart">
-                                            <p className="fs-14 text-muted ">No Product Available In Your Cart</p>
-                                        </div>
+                                        <div className="cart-dropdown addtocart-dropdown cart--itemlist">
+                                            {showShoppingCart()}
                                         </div>
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                     </div>
                     <div className="header-menu d-lg-block d-none">
@@ -79,7 +180,7 @@ const Navbar = () => {
                                     <div className="menu-category">
                                         <div className="menu-category-btn menu-category-tigger collapsed">
                                             <div className="d-flex align-items-center gap-3">
-                                                <svg version="1.1" x="0" y="0" viewBox="0 0 24 24" xmlSpace="preserve"><g><g fill-rule="evenodd" clip-rule="evenodd"><path d="M2.25 4c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 9 10.75H4A1.75 1.75 0 0 1 2.25 9zM4 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5A.25.25 0 0 0 9.25 9V4A.25.25 0 0 0 9 3.75zM2.25 15c0-.967.784-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 9 21.75H4A1.75 1.75 0 0 1 2.25 20zM4 14.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25zM13.25 4c0-.966.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 20 10.75h-5A1.75 1.75 0 0 1 13.25 9zM15 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25V4a.25.25 0 0 0-.25-.25zM13.25 15c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 20 21.75h-5A1.75 1.75 0 0 1 13.25 20zm1.75-.25a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25z" opacity="1" data-original="#000000"></path></g></g></svg>
+                                                <svg version="1.1" x="0" y="0" viewBox="0 0 24 24" xmlSpace="preserve"><g><g fillRule="evenodd" clipRule="evenodd"><path d="M2.25 4c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 9 10.75H4A1.75 1.75 0 0 1 2.25 9zM4 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5A.25.25 0 0 0 9.25 9V4A.25.25 0 0 0 9 3.75zM2.25 15c0-.967.784-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 9 21.75H4A1.75 1.75 0 0 1 2.25 20zM4 14.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25zM13.25 4c0-.966.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 20 10.75h-5A1.75 1.75 0 0 1 13.25 9zM15 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25V4a.25.25 0 0 0-.25-.25zM13.25 15c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 20 21.75h-5A1.75 1.75 0 0 1 13.25 20zm1.75-.25a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25z" opacity="1" data-original="#000000"></path></g></g></svg>
                                                 <p className="d-flex align-items-center gap-3">
                                                     <span>Categories</span>
                                                 </p>
@@ -87,7 +188,7 @@ const Navbar = () => {
                                             <svg className="fa-solid fa-chevron-down category-dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path d="M4.58594 9.0001L12.0002 16.4143L19.4144 9.0001L18.0002 7.5859L12.0002 13.5859L6.00015 7.5859L4.58594 9.0001Z" fill="white" />
                                             </svg>
-                                           {/*  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            {/*  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path d="M4.58594 14.9999L12.0002 7.58569L19.4144 14.9999L18.0002 16.4141L12.0002 10.4141L6.00015 16.4141L4.58594 14.9999Z" fill="white" />
                                             </svg> */}
                                         </div>
@@ -95,12 +196,12 @@ const Navbar = () => {
                                 </div>
                                 <div className="header-menuRight">
                                     <ul className="menus">
+                                     {/*    <li className="menu">
+                                            <a className="navLink" href="/">HOME</a>
+                                        </li> */}
                                         <li className="menu">
-                                            <a className="navLink" href="">HOME</a>
-                                        </li>     
-                                        <li className="menu">
-                                            <a className="navLink" href="">PRODUCTS</a>
-                                        </li>     
+                                            <a className="navLink" href={`${process.env.NEXT_PUBLIC_BASE_URL}/products`}>PRODUCTS</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -109,7 +210,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="header-menu d-lg-block d-none"></div>
-       </header>
+        </header>
     )
 }
 export default Navbar

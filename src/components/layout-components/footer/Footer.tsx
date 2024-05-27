@@ -39,9 +39,9 @@ export default function Footer() {
                                                             <path d="M0 512h512V0H0Z" fill="#000000"></path>
                                                         </clipPath>
                                                     </defs>
-                                                    <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
-                                                        <path d="M0 0c-60 90-165 212-165 317 0 90.981 74.019 165 165 165s165-74.019 165-165C165 212 60 90 0 0Z" transform="translate(256 15)" fill="none" stroke="#000000" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="1"></path>
-                                                        <path d="M0 0c-41.353 0-75 33.647-75 75s33.647 75 75 75 75-33.647 75-75S41.353 0 0 0Z" transform="translate(256 257)" fill="none" stroke="#000000" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="1"></path>
+                                                    <g clipPath="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
+                                                        <path d="M0 0c-60 90-165 212-165 317 0 90.981 74.019 165 165 165s165-74.019 165-165C165 212 60 90 0 0Z" transform="translate(256 15)" fill="none" stroke="#000000" strokeWidth="30" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeDasharray="none" strokeOpacity="1"></path>
+                                                        <path d="M0 0c-41.353 0-75 33.647-75 75s33.647 75 75 75 75-33.647 75-75S41.353 0 0 0Z" transform="translate(256 257)" fill="none" stroke="#000000" strokeWidth="30" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeDasharray="none" strokeOpacity="1"></path>
                                                     </g>
                                                 </g>
                                             </svg>
@@ -107,7 +107,7 @@ export default function Footer() {
                                             <a href="">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 448 512">
                                                     <path d="M380.9 97.1C339.3 55.5 282.8 32 224 32 100.3 32 0 132.3 0 256c0 45.4 11.9 89.4 34.3 128.3L0 480l98.4-32.5C136.4 468.1 180.4 480 226 480c123.7 0 224-100.3 224-224 0-58.8-23.5-115.3-69.1-158.9zM224 423c-34.4 0-67.7-10.7-95.4-30.7l-6.8-4.6-58.4 19.3 19.7-56.8-4.4-7C52.8 320.7 42 288.4 42 256c0-100.3 81.7-182 182-182 48.6 0 94.3 18.9 128.7 53.3S406 207.4 406 256c0 100.3-81.7 182-182 182zm-15-65.4c-33.3 0-58.3-18.6-67.3-35.5-3.6-6.4-6.2-13.4-4.7-20.9l4.2-20.7c1.6-7.9-.1-13.9-8.3-21.1-3.6-3-11-9.5-13.4-13.2-3.1-4.7-3.3-8.7 1-13.4 10.9-12.1 20.3-22.6 34.3-14.3 6.2 3.7 12.6 8.4 19.1 12.3 6.4 3.9 12.9 4.6 19.9 1.5 2.6-1.1 7.8-2.4 11.3-3.2 7.3-1.7 14.1 1.4 17.5 6.1 7.8 10.4 16.1 20.5 24.6 30.3 5.5 6.3 4.8 13.1-.8 18.8-3.7 3.8-7.1 7.5-10.7 11.2-4.2 4.3-4.2 8.6-.4 13.6 7.1 9.2 14.1 18.4 20.5 27.8 5.4 7.8 3.7 12.6-5.6 14.7-10.1 2.3-20.6 4-30.8 5.9-13.8 2.6-25.1 4.7-37.6 4.7z" fill="#25D366" />
-                                                </svg>  
+                                                </svg>
                                             </a>
                                         </li>
                                     </ul>

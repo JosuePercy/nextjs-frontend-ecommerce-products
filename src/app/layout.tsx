@@ -1,12 +1,13 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/header/Navbar";
+import Navbar from "@/components/layout-components/header/Navbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Banner from "@/components/banner/Banner";
-import Filters from "@/components/filters/Filters";
-import Contact from "@/components/contact/Contact";
-import Footer from "@/components/footer/Footer";
+import Banner from "@/components/layout-components/banner/Banner";
+import Contact from "@/components/layout-components/contact/Contact";
+import Footer from "@/components/layout-components/footer/Footer";
+import { UIProvider } from "@/context/ui/UIProvider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,12 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
     <html lang="en">
       <body className={inter.className}>
-        <Navbar/>
-        
-        {children}
-        <Footer />
+        <UIProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </UIProvider>
       </body>
     </html>
   );
