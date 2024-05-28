@@ -1,14 +1,17 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ICategory } from '@/interfaces/products.interface'
 import './FilterProducts.css'
 import Category from './Category'
 import { fetchGET } from '@/utils/fetch-apis'
+import { useSearchParams } from 'next/navigation'
+import { UIContext } from '@/context/ui'
 
 const FilterProducts = () => {
 
     const [category, setCategory] = useState<ICategory[]>()
+    const { queryCategoryContext } = useContext(UIContext)
 
     const getFetchCategory = () => {
         const response = fetchGET(`${process.env.NEXT_PUBLIC_API}/categories`)
@@ -23,6 +26,7 @@ const FilterProducts = () => {
             })
         return response
     }
+
 
 
     useEffect(() => {
@@ -47,8 +51,12 @@ const FilterProducts = () => {
                             </p>
                             <ul className='list-unstyled mb-0 mt-3 filter-list'>
                                 {
+                                    
                                     category?.map((item) => {
-                                        return <Category category={item} key={item.url}/>
+                                        return <Category
+                                            category={item}
+                                            key={item.url}
+                                            urlQuery={queryCategoryContext} />
                                     })
 
                                     /*  CATEGORY_NAME.map(category => (
@@ -64,6 +72,7 @@ const FilterProducts = () => {
                                          </li>
                                      )) */
                                 }
+                                {/* TODO: poner boton */}
                             </ul>
                         </div>
                     </div>

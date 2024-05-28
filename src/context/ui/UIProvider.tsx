@@ -5,32 +5,29 @@ import { UiReducer } from "./UIReducer";
 import { IProduct } from "@/interfaces/products.interface";
 
 export interface UiState {
-  localStorageProduct: any
+  localStorageProduct: any,
+  queryCategoryContext: any,
 }
 
 const UI_INITIAL_STATE: UiState = {
   localStorageProduct: [],
+  queryCategoryContext: "all",
 }
 
 export const UIProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(UiReducer, UI_INITIAL_STATE);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("car")) {
-  //     let products = JSON.parse(localStorage.getItem("car") ?? "[]");
-  //     if (products.length > 0) setLocalStorageProduct(products)
-  //     //state.localStorageProduct = JSON.parse(localStorage.getItem("car") ?? "[]")
-  //   }
-  // }, [])
 
-
-  const setLocalStorageProduct = (lcoal: IProduct) => {
-    console.log("")
-    dispatch({ type: "[UI] - setLocalStorageProduct", payload: lcoal })
+  const setLocalStorageProduct = (local: IProduct) => {
+    dispatch({ type: "[UI] - setLocalStorageProduct", payload: local })
   };
-  const setLocalStorageProductArray = (lcoal: IProduct[]) => {
-    console.log("")
-    dispatch({ type: "[UI] - setLocalStorageProductArray", payload: lcoal })
+
+  const setLocalStorageProductArray = (local: IProduct[]) => {
+    dispatch({ type: "[UI] - setLocalStorageProductArray", payload: local })
+  };
+
+  const setQueryCategoryContext = (category: string) => {
+    dispatch({ type: "[UI] - setQueryCategoryContext", payload: category })
   };
   
 
@@ -41,7 +38,8 @@ export const UIProvider = ({ children }: any) => {
 
         // Methods
         setLocalStorageProduct,
-        setLocalStorageProductArray
+        setLocalStorageProductArray,
+        setQueryCategoryContext
       }}>
       {children}
     </UIContext.Provider>

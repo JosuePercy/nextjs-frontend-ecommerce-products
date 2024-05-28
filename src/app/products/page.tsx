@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Banner from '@/components/layout-components/banner/Banner'
 import Contact from '@/components/layout-components/contact/Contact'
@@ -11,17 +11,63 @@ import { IProduct } from '@/interfaces/products.interface'
 import Product from '@/components/layout-components/product/Product'
 import { fetchGET } from '@/utils/fetch-apis'
 import { UIProvider } from '@/context/ui/UIProvider'
+import { useSearchParams } from 'next/navigation'
+import { UIContext } from '@/context/ui'
 
 
 const Page = () => {
 
+  const searchParams = useSearchParams()
   const [products, setProducts] = useState<IProduct[]>([])
+  const [queryCategory, setQueryCategory] = useState<string | null>(searchParams.get('category'))
+  const [loading, setLoading] = useState<boolean>(true)
+  const { setQueryCategoryContext } = useContext(UIContext)
+
+
+  const getDataProductFromCategory = () => {
+    fetchGET(`${process.env.NEXT_PUBLIC_API}/products/category/${queryCategory}`)
+      .then(products => {
+        setLoading(false)
+        setProducts(products)
+      })
+  }
+
+
+  useEffect(() => {
+    getDataProductFromCategory()
+  }, [queryCategory])
+
+
+  useEffect(() => {
+    setLoading(true)
+
+    const handleRouteChange = () => {
+      const category = searchParams.get('category');
+      setQueryCategoryContext(category ?? "")
+      setQueryCategory(category);
+    };
+
+    handleRouteChange(); // Call initially to set the category
+
+    // Set up a MutationObserver to detect changes in the URL's search parameters
+    const observer = new MutationObserver(handleRouteChange);
+    observer.observe(document, {
+      subtree: true,
+      childList: true
+    });
+
+    // Cleanup the observer on unmount
+    return () => {
+      observer.disconnect();
+    };
+  }, [searchParams]);
 
 
   const getFetchProducts = () => {
     const response = fetchGET(`${process.env.NEXT_PUBLIC_API}/products`)
       .then(products => {
-          setProducts(products)
+        setLoading(false)
+        setProducts(products)
       })
     return response
   }
@@ -29,7 +75,8 @@ const Page = () => {
 
 
   useEffect(() => {
-    getFetchProducts()
+    if (searchParams.get('category')) getDataProductFromCategory()
+    else getFetchProducts()
   }, [])
 
   return (
@@ -45,11 +92,17 @@ const Page = () => {
                 <ProductFilterRight />
                 <div className='row g-2 g-md-4'>
                   {
-                    products.map((product: IProduct) => {
-                      return (
-                        <Product key={product.id} product={product} />
+                    loading ?
+                      <>
+                        <h3>Cargando...</h3>
+                      </> :
+                      (
+                        products.map((product: IProduct) => {
+                          return (
+                            <Product key={product.id} product={product} />
+                          )
+                        })
                       )
-                    })
                   }
                 </div>
               </div>
