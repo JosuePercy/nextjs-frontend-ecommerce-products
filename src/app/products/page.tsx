@@ -10,7 +10,6 @@ import ProductFilterRight from '@/components/layout-components/product-filter-ri
 import { IProduct } from '@/interfaces/products.interface'
 import Product from '@/components/layout-components/product/Product'
 import { fetchGET } from '@/utils/fetch-apis'
-import { UIProvider } from '@/context/ui/UIProvider'
 import { useSearchParams } from 'next/navigation'
 import { UIContext } from '@/context/ui'
 

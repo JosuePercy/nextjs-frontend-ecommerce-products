@@ -3,9 +3,6 @@ import './FilterProducts.css'
 
 import { ICategory } from '@/interfaces/products.interface'
 import Link from 'next/link'
-import { fetchGET } from '@/utils/fetch-apis'
-import { useSearchParams } from 'next/navigation'
-import { UIContext } from '@/context/ui'
 
 interface Props {
     category: ICategory,

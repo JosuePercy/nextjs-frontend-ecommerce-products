@@ -5,8 +5,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout-components/header/Navbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Banner from "@/components/layout-components/banner/Banner";
-import Contact from "@/components/layout-components/contact/Contact";
 import Footer from "@/components/layout-components/footer/Footer";
 import { UIProvider } from "@/context/ui/UIProvider";
 

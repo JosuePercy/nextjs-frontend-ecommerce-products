@@ -5,7 +5,6 @@ import { ICategory } from '@/interfaces/products.interface'
 import './FilterProducts.css'
 import Category from './Category'
 import { fetchGET } from '@/utils/fetch-apis'
-import { useSearchParams } from 'next/navigation'
 import { UIContext } from '@/context/ui'
 
 const FilterProducts = () => {
