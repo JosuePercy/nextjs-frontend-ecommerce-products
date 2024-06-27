@@ -14,7 +14,7 @@ const NOT_RESULTS = () => <h3>NO SE ENCONTRO EL PRODUCTO</h3>
 const Product = ({ params }: any) => {
     //const { url } = router.asPath
     const [product, setProduct] = useState<IProduct[] | null>([])
-
+    
 
     const { url } = params
 
@@ -29,9 +29,15 @@ const Product = ({ params }: any) => {
             })
         return response
     }
+    
+
+    if (!product || product.length === 0) {
+        return <div>Loading...</div>;
+    }
 
     const PRODUCT_LIST = () => {
         return (
+            
             <>
                 <ul className='route'>
                     <li><a href="https://cartuser.kodepixel.com">Home /</a></li>
@@ -46,8 +52,9 @@ const Product = ({ params }: any) => {
                             <div className='small-img-item'>
                                 {
                                     [1, 2, 3].map((index) => (
+                                        
                                         <div key={index} className='gallery-sm-img product-gallery-small-img'>
-                                            <img src={product[0].images[0].url} alt="65ddc6b8a60ea1709033144.png" />
+                                            <img src={product[0].images![0].url} alt="65ddc6b8a60ea1709033144.png" />
                                         </div>
                                     ))
 
@@ -57,7 +64,7 @@ const Product = ({ params }: any) => {
                         <div className='product-thumbnail-slider'>
                             <div className='magnify-container'>
                                 <div className='magnified'>
-                                    <img className="qv-lg-image" src={product[0].images[0].url} alt="65ddc6b8a60ea1709033144.png"></img>
+                                    <img className="qv-lg-image" src={product[0].images![0].url} alt="65ddc6b8a60ea1709033144.png"></img>
                                 </div>
                             </div>
                         </div>
