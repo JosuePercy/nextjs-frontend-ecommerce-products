@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, Suspense } from 'react'
 
 import Banner from '@/components/layout-components/banner/Banner'
 import Contact from '@/components/layout-components/contact/Contact'
@@ -92,19 +92,21 @@ const Page = () => {
               <div className='category-product'>
                 <ProductFilterRight />
                 <div className='row g-2 g-md-4'>
-                  {
-                    loading ?
-                      <div className="spinner-container">
-                        <div className="spinner"></div>
-                      </div> :
-                      (
-                        products.map((product: IProduct) => {
-                          return (
-                            <Product key={product.id} product={product} />
-                          )
-                        })
-                      )
-                  }
+                  <Suspense fallback={<div>Loading products...</div>}>
+                    {
+                      loading ?
+                        <div className="spinner-container">
+                          <div className="spinner"></div>
+                        </div> :
+                        (
+                          products.map((product: IProduct) => {
+                            return (
+                              <Product key={product.id} product={product} />
+                            )
+                          })
+                        )
+                    }
+                  </Suspense>
                 </div>
               </div>
             </div>

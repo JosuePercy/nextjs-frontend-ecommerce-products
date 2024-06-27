@@ -1,23 +1,17 @@
 "use client"
+
+
 import React, { useEffect, useState } from 'react'
 import './page.css'
 import { fetchGET } from '@/utils/fetch-apis'
 import { IProduct } from '@/interfaces/products.interface'
-import { useSearchParams } from 'next/navigation'
-
-
-
 
 const NOT_RESULTS = () => <h3>NO SE ENCONTRO EL PRODUCTO</h3>
-
 
 const Product = ({ params }: any) => {
     //const { url } = router.asPath
     const [product, setProduct] = useState<IProduct[] | null>([])
-    
-
     const { url } = params
-
 
     const getFetchProduct = () => {
         console.log(`api 0======>    ${process.env.NEXT_PUBLIC_API}/products/${url}`)
