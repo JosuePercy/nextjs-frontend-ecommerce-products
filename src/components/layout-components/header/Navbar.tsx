@@ -109,7 +109,7 @@ const Navbar = () => {
                     <div className="header-bottom-container">
                         <div className="header-logo">
                             <a href="https://cartuser.kodepixel.com">
-                                <img src="https://cartuser.kodepixel.com/assets/images/backend/logoIcon/6630b505306791714468101.png" alt="site_logo.png" />
+                                <img src="https://cartuser.kodepixel.com/assets/images/backend/logoIcon/66688864295721718126692.png" alt="site_logo.png" />
                             </a>
                         </div>
                         <div className="mobile-search">

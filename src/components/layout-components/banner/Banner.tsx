@@ -4,8 +4,8 @@ export default function Banner() {
     return (
         <div className="breadcrumb-banner">
             <div className='breadcrumb-banner-img'>
-                <img src="https://cartuser.kodepixel.com/assets/images/frontend/65e0484ec4fc71709197390.png" alt="breadcrumb" />
-            </div>
+                <img src="https://cartuser.kodepixel.com/assets/images/frontend/65e0484ec4fc71709197390.webp" alt="breadcrumb" />
+            </div>  
             <div className='page-Breadcrumb'>
                 <div className='Container'>
                     <div className='breadcrumb-container'>
