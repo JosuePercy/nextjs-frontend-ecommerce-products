@@ -198,7 +198,7 @@ const Navbar = () => {
                                             <a className="navLink" href="/">HOME</a>
                                         </li> */}
                                         <li className="menu">
-                                            <a className="navLink" href={`${process.env.NEXT_PUBLIC_BASE_SERVER}/products`}>PRODUCTS</a>
+                                            <a className="navLink" href={`${process.env.NEXT_PUBLIC_BASE_URL}/products`}>PRODUCTS</a>
                                         </li>
                                     </ul>
                                 </div>

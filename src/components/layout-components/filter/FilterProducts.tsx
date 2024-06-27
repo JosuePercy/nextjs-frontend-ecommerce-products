@@ -13,7 +13,7 @@ const FilterProducts = () => {
     const { queryCategoryContext } = useContext(UIContext)
 
     const getFetchCategory = () => {
-        const response = fetchGET(`/categories`)
+        const response = fetchGET(`${process.env.NEXT_PUBLIC_API}/categories`)
             .then((data: ICategory[]) => {
                 const results = data.map((item) => {
                     return {
