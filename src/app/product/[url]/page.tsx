@@ -21,6 +21,7 @@ const Product = ({ params }: any) => {
 
     const getFetchProduct = () => {
         console.log(`api 0======>    ${process.env.NEXT_PUBLIC_API}/products/${url}`)
+        if( url === null) return
         const response = fetchGET(`${process.env.NEXT_PUBLIC_API}/products/${url}`)
             .then(data => {
                 console.log("data", data)
@@ -46,7 +47,7 @@ const Product = ({ params }: any) => {
                                 {
                                     [1, 2, 3].map((index) => (
                                         <div key={index} className='gallery-sm-img product-gallery-small-img'>
-                                            <img src={product[0].images[0].image} alt="65ddc6b8a60ea1709033144.png" />
+                                            <img src={product[0].images[0].url} alt="65ddc6b8a60ea1709033144.png" />
                                         </div>
                                     ))
 
@@ -56,7 +57,7 @@ const Product = ({ params }: any) => {
                         <div className='product-thumbnail-slider'>
                             <div className='magnify-container'>
                                 <div className='magnified'>
-                                    <img className="qv-lg-image" src={product[0].images[0].image} alt="65ddc6b8a60ea1709033144.png"></img>
+                                    <img className="qv-lg-image" src={product[0].images[0].url} alt="65ddc6b8a60ea1709033144.png"></img>
                                 </div>
                             </div>
                         </div>

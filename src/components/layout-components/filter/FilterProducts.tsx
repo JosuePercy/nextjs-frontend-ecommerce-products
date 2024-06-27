@@ -28,7 +28,6 @@ const FilterProducts = () => {
     }
 
 
-
     useEffect(() => {
         getFetchCategory()
     }, [])
@@ -51,7 +50,6 @@ const FilterProducts = () => {
                             </p>
                             <ul className='list-unstyled mb-0 mt-3 filter-list'>
                                 {
-                                    
                                     category?.map((item) => {
                                         return <Category
                                             category={item}

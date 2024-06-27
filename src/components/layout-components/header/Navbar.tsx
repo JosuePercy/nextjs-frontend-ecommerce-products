@@ -42,17 +42,15 @@ const Navbar = () => {
                     {
 
                         listProductLocalStorage.map((item: IProduct, index: number) => {
-
                             const { price } = item
-                            let priceSoles = parseFloat(price).toFixed(2);
-
+                            let priceSoles = parseFloat(price).toFixed(2)
+                            
                             return (
-
                                 <div key={index} className="cart-product">
                                     <div className="cart-product-img">
                                         {
-                                            item?.images?.[0]?.image && (
-                                                <img src={item.images[0].image} alt={item.name} />
+                                            item?.images?.[0]?.url && (
+                                                <img src={item.images[0].url} alt={item.name} />
                                             )
                                         }
                                     </div>
@@ -72,7 +70,7 @@ const Navbar = () => {
                                     </button>
                                 </div>
 
-                            )
+                            ) 
                         })
                     }
 

@@ -17,7 +17,7 @@ const Product = ({ product }: Props) => {
 
         if (product && product.images && product.images.length > 0) {
 
-            return <img src={product.images[0].image} alt="Video Game Joy Stick" />
+            return <img src={product.images[0].url} alt="Video Game Joy Stick" />
 
         }
         else {

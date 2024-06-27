@@ -25,6 +25,7 @@ const Page = () => {
 
 
   const getDataProductFromCategory = () => {
+    if (queryCategory === null) return
     fetchGET(`${process.env.NEXT_PUBLIC_API}/products/category/${queryCategory}`)
       .then(products => {
         setLoading(false)
@@ -93,9 +94,9 @@ const Page = () => {
                 <div className='row g-2 g-md-4'>
                   {
                     loading ?
-                      <>
-                        <h3>Cargando...</h3>
-                      </> :
+                      <div className="spinner-container">
+                        <div className="spinner"></div>
+                      </div> :
                       (
                         products.map((product: IProduct) => {
                           return (

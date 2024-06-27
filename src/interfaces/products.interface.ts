@@ -4,7 +4,7 @@ export interface ICategory {
 }
 
 export interface ImageProducts {
-  image: string;
+  url: string;
 }
 
 export interface IProduct {
