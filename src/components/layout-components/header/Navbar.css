@@ -155,6 +155,41 @@ img {
   border-radius: 30px;
 }
 
+
+.cart-product-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.cart-product-action > .btn--fill {
+    background-color: var(--primary);
+    color: var(--white);
+    border: 0.1rem solid var(--primary);
+    transition: var(--transition-3);
+    -webkit-transition: var(--transition-3);
+    -moz-transition: var(--transition-3);
+    -ms-transition: var(--transition-3);
+    -o-transition: var(--transition-3);
+}
+
+.cart-product-action > a {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0.8rem 1.3rem;
+    border-radius: 20px;
+    border: 0.1rem solid var(--primary-light-border);
+    transition: var(--transition-3);
+    -webkit-transition: var(--transition-3);
+    -moz-transition: var(--transition-3);
+    -ms-transition: var(--transition-3);
+    -o-transition: var(--transition-3);
+}
+
 .form-control {
   display: block;
   width: 100%;
@@ -801,4 +836,51 @@ svg {
   .Container {
     max-width: 156rem;
   }
+}
+
+
+
+
+/* UserMenu.css */
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 20px; /* Ajusta el margen según sea necesario */
+}
+
+.icono-usuario {
+  margin-right: 8px; /* Ajusta el espacio entre el icono y el nombre */
+}
+
+.user-name {
+  font-size: 16px;
+  color: red; /* Ajusta el color del nombre si es necesario */
+}
+
+.dropdown-menu {
+    border: aliceblue;
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(30, 47, 50, 0.1);
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+
+.dropdown-menu a {
+  padding: 1rem;
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  color: #e40046;
 }

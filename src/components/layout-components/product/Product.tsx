@@ -1,16 +1,19 @@
 "use client"
 
 import { IProduct } from '@/interfaces/products.interface'
+
 import React, { useContext, useEffect } from 'react'
-import './Product.css'
 import ButtonLigthIcon from '@/components/ui/button/button-ligth-icon'
 import { UIContext } from '@/context/ui/UIContext'
+
+import './Product.css'
 
 interface Props {
     product: IProduct
 }
 
 const Product = ({ product }: Props) => {
+
     const { setLocalStorageProduct } = useContext(UIContext)
 
     const getImage = () => {
@@ -36,7 +39,7 @@ const Product = ({ product }: Props) => {
             <div className="col-xl-3 col-md-4 col-6">
                 <div className="product-item">
                     <div className="product-img">
-                        <a href="https://cartuser.kodepixel.com/product/video-game-joy-stick/30">
+                        <a href={`/product/${product.name}`}>
                             {
                                 getImage()
                             }
@@ -51,7 +54,7 @@ const Product = ({ product }: Props) => {
                     </div>
                     <div className="product-info">
                         <h4 className="product-title">
-                            <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/product/${product.url}`}>
+                            <a href={`/product/${product.url}`}>
                                 {product.name}
                             </a>
                         </h4>

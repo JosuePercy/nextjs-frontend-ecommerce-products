@@ -1,17 +1,21 @@
 "use client"
+
 import { useContext, useEffect, useState } from "react"
 
 import "./Navbar.css"
 import { stringify } from "querystring"
 import { IProduct } from "@/interfaces/products.interface"
 import { UIContext } from "@/context/ui/UIContext"
-
+import Link from "next/link"
 
 
 const Navbar = () => {
     const { localStorageProduct, setLocalStorageProduct, setLocalStorageProductArray } = useContext(UIContext)
     const [listProductLocalStorage, setListProductLocalStorage] = useState<IProduct[]>([])
+    
     const [totalPrice, setTotalPrice] = useState<number>(0)
+    const [isHovered, setIsHovered] = useState(false);
+
 
     const sumPrices = () => {
         let result = listProductLocalStorage
@@ -26,8 +30,6 @@ const Navbar = () => {
 
     useEffect(() => {
         setListProductLocalStorage(localStorageProduct)
-
-
     }, [localStorageProduct])
 
     useEffect(() => {
@@ -79,6 +81,14 @@ const Navbar = () => {
                     <span>Total: </span>
                     <small>S/ {totalPrice.toFixed(2)} </small>
                 </div>
+                <div className="cart-product-action">
+                    <Link href="/view/cart" className="btn--fill">
+                        View Cart
+                    </Link>
+                    <a href="https://cartuser.kodepixel.com/user/checkout">
+                        Checkout
+                    </a>
+                </div>
             </>
         )
     }
@@ -102,15 +112,58 @@ const Navbar = () => {
 
     }
 
+    const validateLogin = () => {
+
+        if (localStorage.getItem("loginUser") != undefined){
+            let userLocalStorage = JSON.parse(localStorage.getItem("loginUser") ?? "")
+            /* console.log("userLocalStorage ==>", userLocalStorage) */
+            
+            return (
+                <div
+                    className="user-menu"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <img src="/icons/user-icon.svg" alt="" />
+                    <span className="user-name">{userLocalStorage.nombre}</span>
+                    {isHovered && (
+                        <div className="dropdown-menu">
+                            <a href="/orders">Mis compras</a>
+                            <a href="/mis-compras">Cerrar sección</a>
+                        </div>
+                    )}
+                </div>
+            )
+            
+        } else{
+            return (
+                <div
+                    className="user-menu"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <img src="/icons/user-icon.svg" alt="" />
+                    <span className="user-name">Usuario</span>
+                    {isHovered && (
+                        <div className="dropdown-menu">
+                            <a href="/auth/login">Iniciar sesion</a>
+                        </div>
+                    )}
+                </div>
+            )
+        }
+        
+    }
+
     return (
         <header className="sticky">
             <div className="header-bottom">
                 <div className="container-fluid">
                     <div className="header-bottom-container">
                         <div className="header-logo">
-                            <a href="https://cartuser.kodepixel.com">
-                                <img src="https://cartuser.kodepixel.com/assets/images/backend/logoIcon/66688864295721718126692.png" alt="site_logo.png" />
-                            </a>
+                            <Link href="/products">
+                                <img src="https://cartuser.kodepixel.com/assets/images/backend/logoIcon/6688d43c6493d1720243260.webp" alt="site_logo.png" />
+                            </Link>
                         </div>
                         <div className="mobile-search">
                             {/* Termine con css puro */}
@@ -149,7 +202,7 @@ const Navbar = () => {
                         <div className="mobile-search-tigger d-md-none">
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <div className="header-action d-none d-md-none d-lg-flex">
+                        <div className="header-action  d-lg-flex">
                             <div className="header-action-item">
                                 <div className="header-action-container">
                                     <div className="each-action-item d-lg-flex d-none">
@@ -168,46 +221,70 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="header-action-item">
+
+                                    {
+                                        validateLogin()
+                                    }
+                                    {/* <div
+                                        className="user-menu"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                    >
+                                        <img src="/icons/user-icon.svg" alt="" />
+                                        <span className="user-name">Fernando</span>
+                                        {isHovered && (
+                                                <div className="dropdown-menu">
+                                                    <a href="/orders">Mis compras</a>
+                                                   <a href="/mis-compras">Cerrar sección</a>
+                                                </div>
+                                        )}
+                                    </div> */}
+                                   
+
+                                
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="header-menu d-lg-block d-none">
-                        <div className="Container">
-                            <div className="header-menu-container">
-                                <div className="header-menuLeft">
-                                    <div className="menu-category">
-                                        <div className="menu-category-btn menu-category-tigger collapsed">
-                                            <div className="d-flex align-items-center gap-3">
-                                                <svg version="1.1" x="0" y="0" viewBox="0 0 24 24" xmlSpace="preserve"><g><g fillRule="evenodd" clipRule="evenodd"><path d="M2.25 4c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 9 10.75H4A1.75 1.75 0 0 1 2.25 9zM4 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5A.25.25 0 0 0 9.25 9V4A.25.25 0 0 0 9 3.75zM2.25 15c0-.967.784-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 9 21.75H4A1.75 1.75 0 0 1 2.25 20zM4 14.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25zM13.25 4c0-.966.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 20 10.75h-5A1.75 1.75 0 0 1 13.25 9zM15 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25V4a.25.25 0 0 0-.25-.25zM13.25 15c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 20 21.75h-5A1.75 1.75 0 0 1 13.25 20zm1.75-.25a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25z" opacity="1" data-original="#000000"></path></g></g></svg>
-                                                <p className="d-flex align-items-center gap-3">
-                                                    <span>Categories</span>
-                                                </p>
-                                            </div>
-                                            <svg className="fa-solid fa-chevron-down category-dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <path d="M4.58594 9.0001L12.0002 16.4143L19.4144 9.0001L18.0002 7.5859L12.0002 13.5859L6.00015 7.5859L4.58594 9.0001Z" fill="white" />
-                                            </svg>
-                                            {/*  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                 
+                </div>
+            </div>
+            <div className="header-menu d-lg-block d-none">
+                <div className="Container">
+                    <div className="header-menu-container">
+                        <div className="header-menuLeft">
+                            <div className="menu-category">
+                                <div className="menu-category-btn menu-category-tigger collapsed">
+                                    <div className="d-flex align-items-center gap-3">
+                                        <svg version="1.1" x="0" y="0" viewBox="0 0 24 24" xmlSpace="preserve"><g><g fillRule="evenodd" clipRule="evenodd"><path d="M2.25 4c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 9 10.75H4A1.75 1.75 0 0 1 2.25 9zM4 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5A.25.25 0 0 0 9.25 9V4A.25.25 0 0 0 9 3.75zM2.25 15c0-.967.784-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 9 21.75H4A1.75 1.75 0 0 1 2.25 20zM4 14.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25zM13.25 4c0-.966.783-1.75 1.75-1.75h5c.967 0 1.75.784 1.75 1.75v5A1.75 1.75 0 0 1 20 10.75h-5A1.75 1.75 0 0 1 13.25 9zM15 3.75a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25V4a.25.25 0 0 0-.25-.25zM13.25 15c0-.967.783-1.75 1.75-1.75h5c.967 0 1.75.783 1.75 1.75v5A1.75 1.75 0 0 1 20 21.75h-5A1.75 1.75 0 0 1 13.25 20zm1.75-.25a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25z" opacity="1" data-original="#000000"></path></g></g></svg>
+                                        <p className="d-flex align-items-center gap-3">
+                                            <span>Categories</span>
+                                        </p>
+                                    </div>
+                                    <svg className="fa-solid fa-chevron-down category-dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M4.58594 9.0001L12.0002 16.4143L19.4144 9.0001L18.0002 7.5859L12.0002 13.5859L6.00015 7.5859L4.58594 9.0001Z" fill="white" />
+                                    </svg>
+                                    {/*  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path d="M4.58594 14.9999L12.0002 7.58569L19.4144 14.9999L18.0002 16.4141L12.0002 10.4141L6.00015 16.4141L4.58594 14.9999Z" fill="white" />
                                             </svg> */}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="header-menuRight">
-                                    <ul className="menus">
-                                     {/*    <li className="menu">
-                                            <a className="navLink" href="/">HOME</a>
-                                        </li> */}
-                                        <li className="menu">
-                                            <a className="navLink" href={`${process.env.NEXT_PUBLIC_BASE_URL}/products`}>PRODUCTS</a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
+                        </div>
+                        <div className="header-menuRight">
+                            <ul className="menus">
+                                {/*    <li className="menu">
+                                            <a className="navLink" href="/">HOME</a>
+                                        </li> */}
+                                <li className="menu">
+                                    <a className="navLink" href={`/products`}>PRODUCTS</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="header-menu d-lg-block d-none"></div>
         </header>
     )
 }

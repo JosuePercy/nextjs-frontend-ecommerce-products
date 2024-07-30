@@ -1,0 +1,26 @@
+.checkout-product .card-body {
+    padding: 02rem;
+}
+
+.table > :not(:first-child) {
+    border-top-width: 1px;
+}
+
+.table-borderless > :not(:first-child) {
+    border-top-width: 0;
+}
+
+.table > tbody {
+    vertical-align: inherit;
+}
+
+
+.table > tbody > tr > td {
+    font-size: 1.4rem;
+    padding: 1.5rem;
+}
+
+.checkout-pro-img {
+    width: 5rem;
+    flex: 0 0 5rem;
+}

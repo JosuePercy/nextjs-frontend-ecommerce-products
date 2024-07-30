@@ -1,0 +1,37 @@
+/* Estilo general para la tabla */
+.compras-table {
+  margin-top: 5rem;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff; /* Fondo blanco para la tabla */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+/* Encabezados de la tabla */
+.compras-table thead {
+  background-color: #e60012; /* Rojo Tesla */
+  color: #fff; /* Texto blanco */
+}
+
+.compras-table th, .compras-table td {
+  padding: 12px 15px; /* Espaciado interno */
+  text-align: left; /* Alineación a la izquierda */
+}
+
+/* Filas de la tabla */
+.compras-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Fondo gris claro para filas pares */
+}
+
+.compras-table tbody tr:hover {
+  background-color: #f1c6c6; /* Fondo rojo claro para filas al pasar el ratón */
+}
+
+/* Bordes y separadores */
+.compras-table th, .compras-table td {
+  border-bottom: 1px solid #ddd; /* Borde sutil en la parte inferior de celdas */
+}
+
+.compras-table th {
+  font-weight: bold; /* Negrita para los encabezados */
+}

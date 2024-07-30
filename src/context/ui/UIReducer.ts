@@ -9,16 +9,27 @@ type UiActionType = {
 export const UiReducer = (state: UiState, action: UiActionType): UiState => {
   switch (action.type) {
     case "[UI] - setLocalStorageProduct":
-      let localStorageTmp: any = [];
+      let localStorageTmp: IProduct[] = [];
 
       if (localStorage.getItem("car")) {
-        // SI HAY PRODUCTOS, AGREGAME AL LOCALSTORAGE
-        localStorageTmp = JSON.parse(localStorage.getItem("car") ?? "[]");
-        localStorageTmp.push(action.payload);
+        // Obtener los productos actuales del localStorage
+        localStorageTmp = JSON.parse(
+          localStorage.getItem("car") ?? "[]"
+        ) as IProduct[];
+
+        // Verificar si el producto ya existe en el carrito
+        const existingProductIndex = localStorageTmp.findIndex(
+          (product) => product.id === (action.payload as IProduct).id
+        );
+
+        if (existingProductIndex === -1) {
+          // Si el producto no existe, añadir al carrito
+          localStorageTmp.push(action.payload as IProduct);
+        }
 
         localStorage.setItem("car", JSON.stringify(localStorageTmp));
       } else {
-        localStorageTmp = [action.payload];
+        localStorageTmp = [action.payload as IProduct];
         localStorage.setItem("car", JSON.stringify(localStorageTmp));
       }
 
@@ -34,6 +45,7 @@ export const UiReducer = (state: UiState, action: UiActionType): UiState => {
         ...state,
         localStorageProduct: action.payload,
       };
+
     case "[UI] - setQueryCategoryContext":
       return {
         ...state,

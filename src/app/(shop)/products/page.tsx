@@ -23,6 +23,7 @@ const Page = () => {
   const { setQueryCategoryContext } = useContext(UIContext)
 
 
+  
   const getDataProductFromCategory = () => {
     if (queryCategory === null) return
     fetchGET(`${process.env.NEXT_PUBLIC_API}/products/category/${queryCategory}`)

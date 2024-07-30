@@ -1,6 +1,5 @@
 "use client"
 
-
 import React, { useEffect, useState } from 'react'
 import './page.css'
 import { fetchGET } from '@/utils/fetch-apis'
@@ -11,25 +10,34 @@ const NOT_RESULTS = () => <h3>NO SE ENCONTRO EL PRODUCTO</h3>
 const Product = ({ params }: any) => {
     //const { url } = router.asPath
     const [product, setProduct] = useState<IProduct[] | null>([])
-    const { url } = params
 
-    const getFetchProduct = () => {
-        console.log(`api 0======>    ${process.env.NEXT_PUBLIC_API}/products/${url}`)
-        if( url === null) return
-        const response = fetchGET(`${process.env.NEXT_PUBLIC_API}/products/${url}`)
-            .then(data => {
-                console.log("data", data)
-                setProduct(data)
-            })
-        return response
-    }
     
+    const { url } = params
+    
+    
+    const getFetchProduct = async () => {
+        console.log('api 0');
+        if (!url) return;
+
+        try {
+            const response = await fetchGET(`${process.env.NEXT_PUBLIC_API}/products/${url}`);
+            console.log('data ===>', response);
+            setProduct(response);
+        } catch (error) {
+            console.error('Error fetching product:', error);
+        }
+    };
+
+    useEffect(() => {
+        getFetchProduct();
+    }, [url]);
 
     if (!product || product.length === 0) {
         return <div>Loading...</div>;
     }
 
     const PRODUCT_LIST = () => {
+        
         return (
             
             <>
@@ -46,9 +54,8 @@ const Product = ({ params }: any) => {
                             <div className='small-img-item'>
                                 {
                                     [1, 2, 3].map((index) => (
-                                        
                                         <div key={index} className='gallery-sm-img product-gallery-small-img'>
-                                            <img src={product[0].images![0].url} alt="65ddc6b8a60ea1709033144.png" />
+                                            <img src={product.images![0].url} alt="65ddc6b8a60ea1709033144.png" />
                                         </div>
                                     ))
 
@@ -58,19 +65,19 @@ const Product = ({ params }: any) => {
                         <div className='product-thumbnail-slider'>
                             <div className='magnify-container'>
                                 <div className='magnified'>
-                                    <img className="qv-lg-image" src={product[0].images![0].url} alt="65ddc6b8a60ea1709033144.png"></img>
+                                    <img className="qv-lg-image" src={product.images![0].url} alt="65ddc6b8a60ea1709033144.png"></img>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='product-detail-middle'>
-                        <h3 className="details-product-title">{product[0]?.name}</h3>
+                        <h3 className="details-product-title">{product?.name}</h3>
                         <div className='product-price price-section'>
-                            <span>S/.{(+product[0].price).toFixed(2)}</span>
+                            <span>S/.{(+product.price).toFixed(2)}</span>
                         </div>
                         <div className='product-item-summery'>
                             <p>
-                                <span>{product[0].description}</span>
+                                <span>{product.description}</span>
                             </p>
                         </div>
                         <form className='attribute-options-form-10040787details10040787 quick-view-form'>
@@ -114,12 +121,12 @@ const Product = ({ params }: any) => {
     }
 
 
-    useEffect(() => {
+  /*   useEffect(() => {
         if (url) {
             getFetchProduct();
         }
     }, []);
-
+ */
     /* 
     useEffect(() => {
         getFetchProduct()
@@ -127,7 +134,7 @@ const Product = ({ params }: any) => {
 
 
     return (
-        <section className='product-details pt-80 pb-80'>{JSON.stringify(product)}
+        <section className='product-details pt-80 pb-80'>
             <div className='Container'>
                 {
                     product != null && product?.length <= 0 
